@@ -1,0 +1,110 @@
+<div mat-dialog-content>
+    <div class="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-danger" style="text-align: center;">
+                            <h4 class="card-title">Proyección de cuotas</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class=" text-primary">
+                                        <th>
+                                            Número de cuota
+                                        </th>
+                                        <th>
+                                            Fecha a pagar
+                                        </th>
+                                        <th>
+                                            Cuota a pagar
+                                        </th>
+                                        <th>
+                                            Interés
+                                        </th>
+                                        <th>
+                                            Capital amortizado
+                                        </th>
+                                        <th>
+                                            Capital vivo
+                                        </th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>0</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>$ {{montoFijo}}</td>
+                                        </tr>
+                                        <tr *ngFor="let p of listaCuotas; let i = index ">
+                                            <td>
+                                                {{i+1}}
+                                            </td>
+                                            <td>
+                                                {{p.fechaCorrespondiente}}
+                                            </td>
+                                            <td style="text-align: center;">
+                                                $ {{(p.capitalAmortizado + p.interes) | number: '.0-2'}}
+                                            </td>
+                                            <td style="text-align: center;">
+                                                $ {{p.interes | number: '.0-2'}}
+                                            </td>
+                                            <td style="text-align: center;">
+                                                $ {{p.capitalAmortizado | number: '.0-2'}}
+                                            </td>
+                                            <td>
+                                                $ {{(monto-((i+1)*p.capitalAmortizado)) | number: '.0-2'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center; font-weight: bold;">Resumen</td>
+                                            <td></td>
+                                            <td style="text-align: center; font-weight: bold;">$ {{totalNeto | number: '.0-2'}}</td>
+                                            <td style="text-align: center; font-weight: bold;">$ {{interesTotal | number: '.0-2'}}</td>
+                                            <td style="text-align: center; font-weight: bold;">$ {{montoFijo | number: '.0-2'}}</td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+    
+                    <div class="text-center" *ngIf="!cargando && listaCuotas.length === 0">
+                        <mat-card class="alert alert-warning">
+                            No hay datos!
+                            <mat-card-content>
+                                <mat-icon>warning</mat-icon>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+    
+                    <div class="text-center" *ngIf="cargando">
+                        <mat-card class="alert alert-danger">
+                            Cargando...
+                            <mat-card-content>
+                                <mat-icon class="fa-spin">autorenew</mat-icon>
+                            </mat-card-content>
+                            Por favor espere!
+                        </mat-card>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</div>
+              
+<div class="row">
+    <div class="col-md-12" style="text-align: center;">
+        <button mat-raised-button class="btn btn-danger" type="button" (click)="onCancelar()">Cerrar</button>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+/* 1. Add this mixin to a "global" scss */
+
+@mixin md-icon-size($size: 24px) {
+    font-size: $size;
+    height: $size;
+    width: $size;
+    line-height: $size;
+}
+
+/* 2. Then use it like this in you component scss */
+
+mat-icon {
+    @include md-icon-size(32px);
+}

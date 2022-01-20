@@ -1,0 +1,24 @@
+.fondo {
+    width: 100vw;
+    height: 100vh;
+    
+    background-image: url('../../../assets/img/FINANZAS.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.oscuro {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.login {
+    width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

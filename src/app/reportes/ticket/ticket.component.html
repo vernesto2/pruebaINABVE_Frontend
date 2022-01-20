@@ -1,0 +1,135 @@
+<div style="background-color: white;height: 100vh;width:100vw;">
+    <div class="main-content ml-5 mr-5 pt-5">
+        <div class="container-fluid">
+            <br>
+            <div class="row">
+                <div class="col-md-5" style="text-align: right;">
+                    <h3 style="font-weight: bold;">Fecha: {{fecha | date: 'dd-MM-yyyy'}}</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5" style="text-align: justify;">
+                    ******************************************************************
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5" style="text-align: center;">
+                    <h1 class="card-title" style="font-weight: bold;">Ticket</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5" style="text-align: justify;">
+                    ******************************************************************
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <h2 style="font-weight: bold;">Fecha correspondiente: </h2>
+                </div>
+                <div class="col-md-2" style="text-align: right;">
+                    <h2>{{fechaSig | date: 'dd-MM-yyyy'}}</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <h2 style="font-weight: bold;"># de cuota: </h2>
+                </div>
+                <div class="col-md-2" style="text-align: right;">
+                    <h2>{{numCuota}}</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <h2 style="font-weight: bold;">Capital abonado: </h2>
+                </div>
+                <div class="col-md-2" style="text-align: right;">
+                    <h2>$ {{capital | number: '.0-2'}}</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <h2 style="font-weight: bold;">Interés abonado: </h2>
+                </div>
+                <div class="col-md-2" style="text-align: right;">
+                    <h2>$ {{interes | number: '.0-2'}}</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <h2 style="font-weight: bold;">Saldo en mora: </h2>
+                </div>
+                <div class="col-md-2" style="text-align: right;">
+                    <h2>$ {{saldoMora | number: '.0-2'}}</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5" style="text-align: justify;">
+                    ******************************************************************
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <h2 style="font-weight: bold;">Total pagado: </h2>
+                </div>
+                <div class="col-md-2" style="text-align: right;">
+                    <h2>$ {{cuota | number: '.0-2'}}</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5" style="text-align: justify;">
+                    ******************************************************************
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <h2 style="font-weight: bold;">Capital restante: </h2>
+                </div>
+                <div class="col-md-2" style="text-align: right;">
+                    <h2>$ {{capitalRestante | number: '.0-2'}}</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <h2 style="font-weight: bold;">Monto entregado: </h2>
+                </div>
+                <div class="col-md-2" style="text-align: right;">
+                    <h2>$ {{montoEntregado | number: '.0-2'}}</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <h2 style="font-weight: bold;">Cambio: </h2>
+                </div>
+                <div class="col-md-2" style="text-align: right;">
+                    <h2>$ {{cambio | number: '.0-2'}}</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5" style="text-align: justify;">
+                    ******************************************************************
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5" style="text-align: center;">
+                    <h3>GRACIAS POR SU VISITA</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

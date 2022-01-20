@@ -1,0 +1,60 @@
+<div mat-dialog-content>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary" style="text-align: center;">
+                        <h4 class="card-title">{{nombre}} cantidad total:{{cantidadTipo}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <mat-accordion *ngFor="let a of listaActivo; let i= index">
+                            <mat-expansion-panel (opened)="panelOpenState = true"
+                                                 (closed)="panelOpenState = false">
+                              <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                  Total de {{a.nombre}}: {{a.cantidadactivo}}
+                                </mat-panel-title>
+                              </mat-expansion-panel-header >
+                              <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header card-header-danger" style="text-align: center;">
+                                            <h4 class="card-title">Codigos</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead class=" text-primary">
+                                                        <th>
+                                                            Codigo
+                                                        </th>
+                                                        <th>
+                                                            Valor Actual
+                                                        </th> 
+                                                    </thead>
+                                                    <tbody>
+                                                       <tr *ngFor="let a of listaActivos[i]">
+                                                          <td style="text-align: center;"> 
+                                                            {{a.codigoGenerado}}
+                                                          </td>
+                                                          <td style="text-align: center;">
+                                                            {{a.valorActual | number:'1.0-2'}}
+                                                          </td>
+                                                       </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

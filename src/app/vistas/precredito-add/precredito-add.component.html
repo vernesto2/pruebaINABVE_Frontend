@@ -1,0 +1,447 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+
+        <form (ngSubmit)="guardarCP(forma)" #forma="ngForm">
+          <mat-vertical-stepper [linear]="false" #stepper>
+
+            <mat-step label="pa1" state="p1">
+              <ng-template matStepLabel> Consulta de Crédito</ng-template>
+              <div class="card" style="border-color: rgb(124, 195, 207); border-style: solid; border-width: 1px;">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <mat-form-field appearance="standard">
+                        <mat-label>Tipo de crédito</mat-label>
+                        <mat-select required (selectionChange)="seleccionarTipo($event.value)">
+                          <mat-option value="HIPOTECARIO">Hipotecario</mat-option>
+                          <mat-option value="CONSUMO">Consumo</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2">
+                      <mat-form-field class="example-full-width" appearance="standard">
+                        <mat-label>Monto solicitado ($)</mat-label>
+                        <input matInput [placeholder]="montoInferior + ' - ' + montoSuperior" type="number" required
+                          (keyup)="calcularMonto($event.target.value)" name="monto" #monto="ngModel"
+                          [(ngModel)]="credito.monto" [min]="montoInferior" [max]="montoSuperior">
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2">
+                      <mat-form-field appearance="standard">
+                        <mat-label>Meses/Años</mat-label>
+                        <mat-select required (selectionChange)="seleccionarTiempo($event.value)">
+                          <mat-option value="mes">Meses</mat-option>
+                          <mat-option value="año">Años</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-2">
+                      <mat-form-field appearance="standard">
+                        <mat-label>Tiempo</mat-label>
+                        <input matInput [placeholder]="tiempoInferior + ' - ' + tiempoSuperior" required [disabled]="disTiempo"
+                          (keyup)="calcularTiempo($event.target.value)" type="number" [min]="tiempoInferior" [max]="tiempoSuperior"
+                          name="tiempo" #tiempo="ngModel" [(ngModel)]="credito.tiempo">
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3">
+                      <mat-form-field appearance="standard">
+                        <mat-label>Fecha de inicio</mat-label>
+                        <input matInput [matDatepicker]="picker" name="fecha" disabled #fecha="ngModel"
+                          [(ngModel)]="credito.fechaAprobacion">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width" appearance="standard">
+                        <mat-label>Interés anual %</mat-label>
+                        <input matInput placeholder="Intereses" [value]="interes | number: '.0-2'" disabled>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width" appearance="standard">
+                        <mat-label>Cuota mensual $</mat-label>
+                        <input matInput placeholder="Cuota Mensual" [value]="cuota | number: '.0-2'" disabled>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-2" style="margin-top: 12px;">
+                      <button mat-raised-button type="button" [disabled]="activarProyeccion" color="primary"
+                        (click)="openDialogProyecciones()">Proyección <mat-icon>trending_up</mat-icon></button>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                </div>
+              </div>
+              <div>
+                <button mat-stroked-button type="button" color="primary" matStepperNext style="border-color: rgb(124, 195, 207); border-style: solid; border-width: 1px;">Siguiente</button>
+              </div>
+            </mat-step>
+
+            <mat-step label="pa2" state="p2">
+              <div class="card" style="border-color: rgb(124, 195, 207); border-style: solid; border-width: 1px;">
+                <div class="card-body">
+                  <ng-template matStepLabel>Formulario de Crédito</ng-template>
+                  <div class="row">
+                    <div class="col-md-9">
+                      <mat-accordion>
+                        <mat-expansion-panel>
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                              Seleccionar cliente
+                            </mat-panel-title>
+                            <mat-panel-description>
+                              <p>{{duiCliente | dui}} / {{nombreCliente}}</p>
+                            </mat-panel-description>
+                          </mat-expansion-panel-header>
+                          <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Buscar</mat-label>
+                            <input matInput placeholder="Buscar por DUI, Nombres y Apellidos" (blur)="buscarDUICliente($event.target.value)"
+                              type="text">
+                          </mat-form-field>
+                          <div class="table-responsive">
+                            <table class="table">
+                              <thead class=" text-primary">
+                                <th>
+                                  DUI
+                                </th>
+                                <th>
+                                  Nombres
+                                </th>
+                                <th>
+                                  Apellidos
+                                </th>
+                                <th>
+                                  Acción
+                                </th>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let pn of listaCliente; let i = index">
+                                  <td>
+                                    {{pn.dui | dui}}
+                                  </td>
+                                  <td>
+                                    {{pn.nombres}}
+                                  </td>
+                                  <td>
+                                    {{pn.apellidos}}
+                                  </td>
+                                  <td>
+                                    <button mat-icon-button type="button" (click)="seleccionoCliente(pn)"
+                                      color="primary">
+                                      <mat-icon>check</mat-icon>
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </mat-expansion-panel>
+                      </mat-accordion>
+                    </div>
+                    <div class="col-md-2 pt-2">
+                      <button mat-stroked-button type="button" class="btn btn-primary mr-1"
+                        (click)="openDialogPersona()">Agregar Cliente</button>
+                    </div>
+                  </div>            
+               
+
+                  <div class="row">
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width" appearance="standard">
+                        <mat-label>Ocupación</mat-label>
+                        <input matInput type="text" required name="ocupacionCliente" #ocupacionCliente="ngModel"
+                          [(ngModel)]="ingresosEgresosCliente.ocupacion">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width" appearance="standard">
+                        <mat-label>Ingresos totales mensuales($)</mat-label>
+                        <input matInput type="number" required name="ingresostCliente" #ingresostCliente="ngModel"
+                          [(ngModel)]="ingresosEgresosCliente.ingresosTotales">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width" appearance="standard">
+                        <mat-label>Otros ingresos mensuales($)</mat-label>
+                        <input matInput type="number" required name="otrosingresosCliente" #otrosingresosCliente="ngModel"
+                          [(ngModel)]="ingresosEgresosCliente.otrosIngresos">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width" appearance="standard">
+                        <mat-label>Egresos totales mensuales($)</mat-label>
+                        <input matInput type="number" required (keyup)="vefirifcarIngresos($event.target.value)" name="egresosCliente" #egresosCliente="ngModel"
+                          [(ngModel)]="ingresosEgresosCliente.egresos">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <button mat-stroked-button type="button" color="primary" style="border-color: rgb(124, 195, 207); border-style: solid; border-width: 1px;"
+                class="mr-1" matStepperPrevious>Atrás</button>
+                <button mat-stroked-button type="button" color="primary" style="border-color: rgb(124, 195, 207); border-style: solid; border-width: 1px;"
+                matStepperNext>Siguiente</button>
+              </div>
+            </mat-step>
+
+            <mat-step label="pa3" state="p3">
+              <div class="card" style="border-color: rgb(124, 195, 207); border-style: solid; border-width: 1px;">
+                <div class="card-body">
+                  <ng-template matStepLabel>Datos de Garantía</ng-template>
+                  <!-- FIADOR-->
+                  <div [hidden]="fiador">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-md-10" >
+                            <mat-accordion>
+                              <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                  <mat-panel-title>
+                                    Seleccionar fiador
+                                  </mat-panel-title>
+                                  <mat-panel-description>
+                                    <p>{{duiFiador | dui}} / {{nombreFiador}}</p>
+                                  </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                  <mat-label>Buscar</mat-label>
+                                  <input matInput placeholder="Buscar por DUI, Nombres y Apellidos"
+                                    (blur)="buscarDUIFiador($event.target.value)" type="text">
+                                </mat-form-field>
+                                <div class="table-responsive">
+                                  <table class="table">
+                                    <thead class=" text-primary">
+                                      <th>
+                                        DUI
+                                      </th>
+                                      <th>
+                                        Nombres
+                                      </th>
+                                      <th>
+                                        Apellidos
+                                      </th>
+                                      <th>
+                                        Acción
+                                      </th>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let pn of listaFiador; let i = index">
+                                        <td>
+                                          {{pn.dui | dui}}
+                                        </td>
+                                        <td>
+                                          {{pn.nombres}}
+                                        </td>
+                                        <td>
+                                          {{pn.apellidos}}
+                                        </td>
+                                        <td>
+                                          <button mat-icon-button type="button" (click)="seleccionoFiador(pn)"
+                                            color="primary">
+                                            <mat-icon>check</mat-icon>
+                                          </button>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </mat-expansion-panel>
+                            </mat-accordion>
+                          </div>                          
+                      <div class="col-md-2 pt-2">
+                        <button mat-stroked-button type="button" class="btn btn-primary"
+                          (click)="openDialogPersona()">Agregar Fiador</button>
+                      </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-3">
+                            <mat-form-field class="example-full-width" appearance="standard">
+                              <mat-label>Ocupación</mat-label>
+                              <input matInput type="text" name="ocupacionFiador" #ocupacionFiador="ngModel"
+                                [(ngModel)]="ingresoEgresoFiador.ocupacion">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                            <mat-form-field class="example-full-width" appearance="standard">
+                              <mat-label>Ingresos mensuales ($)</mat-label>
+                              <input matInput type="number" name="ingresostFiador" #ingresostFiador="ngModel"
+                              [(ngModel)]="ingresoEgresoFiador.ingresosTotales">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                            <mat-form-field class="example-full-width" appearance="standard">
+                              <mat-label>Otros ingresos mensuales ($)</mat-label>
+                              <input matInput type="number" name="otrosingresosFiador" #otrosingresosFiador="ngModel"
+                              [(ngModel)]="ingresoEgresoFiador.otrosIngresos">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                            <mat-form-field class="example-full-width" appearance="standard">
+                              <mat-label>Egresos totales mensuales ($)</mat-label>
+                              <input matInput type="number" (keyup)="vefirifcarIngresosFiador($event.target.value)" name="egresosFiador" #egresosFiador="ngModel"
+                              [(ngModel)]="ingresoEgresoFiador.egresos">
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-3">
+                            <button mat-raised-button class="btn btn-primary" type="button" (click)="comprobarIngresos()">Comprobar ingresos</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- HIPOTECARIO-->
+                  <div [hidden]="hipotecario">
+                      <h3 style="color: rgb(38, 0, 255); text-decoration: underline; text-align: center; font-weight: bold;">Datos del bien a hipotecar</h3>
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-md-10" >
+                            <mat-accordion>
+                              <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                  <mat-panel-title>
+                                    Seleccionar bien
+                                  </mat-panel-title>
+                                  <mat-panel-description>
+                                    <p>{{codigoBienSel}} / {{tipoBienSel}}</p>
+                                  </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                  <mat-label>Buscar</mat-label>
+                                  <input matInput placeholder="Buscar código del bien"
+                                    (blur)="buscarCodigoBien($event.target.value)" type="text">
+                                </mat-form-field>
+                                <div class="table-responsive">
+                                  <table class="table">
+                                    <thead class=" text-primary">
+                                      <th>
+                                        Codigo
+                                      </th>
+                                      <th>
+                                        Tipo de bien
+                                      </th>
+                                      <th>
+                                        Valorado en ($)
+                                      </th>
+                                      <th>
+                                        Acción
+                                      </th>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let b of listaBien; let i = index">
+                                        <td>
+                                          {{b.codigo}}
+                                        </td>
+                                        <td>
+                                          {{b.tipoBien}}
+                                        </td>
+                                        <td>
+                                          {{b.valoradoEn | number: '.0-2'}}
+                                        </td>
+                                        <td>
+                                          <button mat-icon-button type="button" (click)="seleccionarBien(b)"
+                                            color="primary">
+                                            <mat-icon>check</mat-icon>
+                                          </button>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </mat-expansion-panel>
+                            </mat-accordion>
+                          </div> 
+                        </div>
+                        <div class="row">
+                          <div class="col-md-2">
+                            <mat-form-field appearance="standard">
+                              <mat-label>Tipo de bien</mat-label>
+                              <mat-select name="tipoBien" #tipoBien="ngModel" [(ngModel)]="bienHipotecado.tipoBien">
+                                <mat-option value="TERRENO">TERRENO</mat-option>
+                                <mat-option value="MOTOCICLETA">MOTOCICLETA</mat-option>
+                                <mat-option value="VEHICULO">VEHICULO</mat-option>
+                                <mat-option value="MAQUINARIA">MAQUINARIA</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-2">
+                            <mat-form-field class="example-full-width" appearance="standard">
+                              <mat-label>Codigo del bien</mat-label>
+                              <input matInput type="text" name="codigoBien" #codigoBien="ngModel" [(ngModel)]="bienHipotecado.codigo">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-2">
+                            <mat-form-field class="example-full-width" appearance="standard">
+                              <mat-label>valorado en ($)</mat-label>
+                              <input matInput type="number" (blur)="montoFinanciado($event.target.value)" 
+                              name="montoBien" #montoBien="ngModel" [(ngModel)]="bienHipotecado.valoradoEn">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-2">
+                            <mat-form-field class="example-full-width" appearance="standard">
+                              <mat-label>% Financiado</mat-label>
+                              <input matInput type="number" value="90" disabled>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-2">
+                            <mat-form-field class="example-full-width" appearance="standard">
+                              <mat-label>Valor financiado</mat-label>
+                              <input matInput type="number" [value]="valorFinanciado" disabled>
+                            </mat-form-field>
+                          </div>
+                          
+                        </div>
+                        <div class="row">
+                          <div class="col-md-10">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Descripción</mat-label>
+                              <textarea matInput name="descripcionBien" #descripcionBien="ngModel" [(ngModel)]="bienHipotecado.descripcion"></textarea>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top: -15px;">
+                    <div class="col-md-4">
+                      <button mat-stroked-button color="primary" type="button" class="mr-1"
+                      style="border-color: rgb(124, 195, 207); border-style: solid; border-width: 1px;" 
+                      matStepperPrevious>Atrás</button>
+                      <button mat-stroked-button color="primary" type="button"
+                      style="border-color: rgb(124, 195, 207); border-style: solid; border-width: 1px;"  
+                      (click)="stepper.reset()">Cancelar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12" style="text-align: center;">
+                  <button mat-raised-button class="btn btn-primary" [disabled]="validarBoton && clienteValido" type="submit">Guardar</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12" style="text-align: center;">
+                  <a href="../../../assets/modelo/modelodecredito.pdf" target="_blank">Click para ver modelo de credito</a>
+                </div>
+              </div>
+            </mat-step>
+          </mat-vertical-stepper>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

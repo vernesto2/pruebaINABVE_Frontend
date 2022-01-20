@@ -1,0 +1,167 @@
+<div style="background-color: white;height: 100vh;width:100vw;">
+    <div class="main-content ml-5 mr-5 pt-5">
+        <div class="container-fluid">
+            <br>
+            <div class="row">
+                <div class="col-md-12" style="text-align: right;">
+                    <h3 style="font-weight: bold;">Fecha de impresión: {{fecha}}</h3>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-info" style="text-align: center;">
+                            <h1 class="card-title">Razones Financieras</h1>
+                            <h3 class="card-category">Reporte</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3" style="text-align: center;">
+                                    <h2 style="font-weight: bold;">Razón</h2>
+                                </div>
+                                <div class="col-md-5" style="text-align: center;">
+                                    <h2 style="font-weight: bold;">Interpretación</h2>
+                                </div>
+                                <div class="col-md-4" style="text-align: center;">
+                                    <h2 style="font-weight: bold;">Criterio</h2>
+                                </div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-md-12">
+                                    <h2 style="font-weight: bold;">Análisis de liquidez y solvencia</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h2>Liquidez corriente: {{liquidezCorriente | number: '.0-2'}}</h2>
+                                </div>
+                                <div class="col-md-5" style="text-align: justify;">
+                                    <h3 *ngIf="liquidezCorriente < 1">Los activos corrientes son insuficientes para cubrir las obligaciones de corto plazo y la empresa tiene una posición de liquidez riesgosa.</h3>
+                                    <h3 *ngIf="liquidezCorriente >= 1">Los activos corrientes son suficientes o más que suficientes para cubrir los pasivos de corto plazo y la empresa no tiene un riesgo de liquidez significativo.</h3>
+                                </div>
+                                <div class="col-md-4" style="text-align: justify;">
+                                    <h3>Cuanto más alta sea la liquidez corriente, mayor liquidez posee la empresa para cumplir con sus obligaciones a CP.</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3" >
+                                    <h2>Razón rápida (Prueba ácida): {{razonRapida | number: '.0-2'}}</h2>
+                                </div>
+                                <div class="col-md-5" style="text-align: justify;">
+                                    <h3 *ngIf="razonRapida < 1">Los activos corrientes sin sus inventarios son insuficientes para cubrir las obligaciones de corto plazo y la empresa tiene una posición de liquidez riesgosa.</h3>
+                                    <h3 *ngIf="razonRapida >= 1">Los activos corrientes sin sus inventarios son suficientes o más que suficientes para cubrir los pasivos de corto plazo y la empresa no tiene un riesgo de liquidez significativo.</h3>
+                                </div>
+                                <div class="col-md-4" style="text-align: justify;">
+                                    <h3>Cuanto más alta sea la razón rápida, mayor capacidad posee la empresa de salir de sus obligaciones a corto plazo sin sus inventarios.</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h2>Prueba ácidicima: {{pruebaAcidicima | number: '.0-2'}}</h2>
+                                </div>
+                                <div class="col-md-5" style="text-align: justify;">
+                                    <h3 *ngIf="pruebaAcidicima < 1">Solo el Efectivo y equivalente son insuficientes para cubrir las obligaciones de corto plazo y la empresa tiene una posición de liquidez riesgosa.</h3>
+                                    <h3 *ngIf="pruebaAcidicima >= 1">Solo el Efectivo y equivalente son suficientes o más que suficientes para cubrir los pasivos de corto plazo y la empresa no tiene un riesgo de liquidez significativo.</h3>
+                                </div>
+                                <div class="col-md-4" style="text-align: justify;">
+                                    <h3>Cuanto más alta sea la prueba ácidicima mayor capacidad tiene de cumplir con sus obligaciones solo con el efectivo.</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h2>Capital de trabajo: {{capitalTrabajo | number: '.0-2'}}</h2>
+                                </div>
+                                <div class="col-md-5" style="text-align: justify;">
+                                    <h3 *ngIf="capitalTrabajo >= 0">Se observa que los activos corrientes son mayores a sus pasivos corrientes y por ende puede operar sin riesgo a un endeudamiento.</h3>
+                                    <h3 *ngIf="capitalTrabajo < 0">Se observa que los activos corrientes son menores a sus pasivos corrientes y por ende tiene riesgo a un endeudamiento.</h3>
+                                </div>
+                                <div class="col-md-4" style="text-align: justify;">
+                                    <h3>Entre mayor sea el capital de trabajo tendrá mayor capacidad para cubrir sus pasivos.</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h2>Prueba ácida de deudores: {{pruebaAcidaDeudores | number: '.0-2'}}</h2>
+                                </div>
+                                <div class="col-md-5" style="text-align: justify;">
+                                    <h3 *ngIf="pruebaAcidaDeudores >= 0">Se observa que los activos corrientes menos sus cuentas por cobrar son mayores a sus pasivos y por ende puede operar sin riesgo a un endeudamiento.</h3>
+                                    <h3 *ngIf="capitalTrabajo < 0">Se observa que los activos corrientes menos sus cuentas por cobrar son menores a sus pasivos y por ende tiene riesgo a un endeudamiento.</h3>
+                                </div>
+                                <div class="col-md-4" style="text-align: justify;">
+                                    <h3>Entre mayor sea el capital de trabajo tendrá mayor capacidad para cubrir sus pasivos.</h3>
+                                </div>
+                            </div>
+
+                            <div class="row" >
+                                <div class="col-md-12">
+                                    <h2 style="font-weight: bold;">Análisis de endeudamiento</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h2>Razón de deuda total a capital de los accionistas: {{razonDeudaAKAccionistas | percent: '2.2-2'}}</h2>
+                                </div>
+                                <div class="col-md-5" style="text-align: justify;">
+                                    <h3 *ngIf="razonDeudaAKAccionistas >= 0.5">La empresa tiene un nivel de endeudamiento alto y esto indica que la empresa le pertenece a los accionistas.</h3>
+                                    <h3 *ngIf="razonDeudaAKAccionistas < 0.5">La empresa tiene un nivel de endeudamiento bajo y esto indica que la empresa le pertenece a los dueños</h3>
+                                </div>
+                                <div class="col-md-4" style="text-align: justify;">
+                                    <h3>Cuanto más alta sea la razón, significa que mas le pertenece la empresa a los accionistas.</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h2>Razón de deuda total a activo total: {{razonDeudaTAAT | percent: '2.2-2'}}</h2>
+                                </div>
+                                <div class="col-md-5" style="text-align: justify;">
+                                    <h3 *ngIf="razonDeudaTAAT >= 0.5">Los activos de la empresa estan siendo financiados mayormente por los acreedores.</h3>
+                                    <h3 *ngIf="razonDeudaTAAT < 0.5">Los activos de la empresa estan siendo financiados mayormente por los dueños.</h3>
+                                </div>
+                                <div class="col-md-4" style="text-align: justify;">
+                                    <h3>Cuanto más alta sea la razón, significa que en ese porcentaje están siendo financiados los activos por acreedores.</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h2>Razón de cargos de interés fijo: {{razonCargosdeIntFijos | number: '.0-2'}}</h2>
+                                </div>
+                                <div class="col-md-5" style="text-align: justify;">
+                                    <h3 *ngIf="razonCargosdeIntFijos >= 0">Se observa que los activos corrientes menos sus cuentas por cobrar son mayores a sus pasivos y por ende puede operar sin riesgo a un endeudamiento.</h3>
+                                    <h3 *ngIf="razonCargosdeIntFijos < 0">Se observa que los activos corrientes menos sus cuentas por cobrar son menores a sus pasivos y por ende tiene riesgo a un endeudamiento.</h3>
+                                </div>
+                                <div class="col-md-4" style="text-align: justify;">
+                                    <h3>Cuanto más alta sea la razón, mayor posibilidades de pagar los intereses anuales posee la empresa.</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h2>Razón de deuda a largo plazo a capital total: {{razonDeudaALPaKT | percent: '2.2-2'}}</h2>
+                                </div>
+                                <div class="col-md-5" style="text-align: justify;">
+                                    <h3 *ngIf="razonDeudaALPaKT >= 1">La empresa esta financianto completamente su capital total con deuda a largo plazo.</h3>
+                                    <h3 *ngIf="razonDeudaALPaKT < 1">La empresa no esta financianto completamente su capital total con deuda a largo plazo.</h3>
+                                </div>
+                                <div class="col-md-4" style="text-align: justify;">
+                                    <h3>Cuanto más alta sea la razón, significa que la empresa esta financiando su capital total con deuda a largo plazo.</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h2>Proporción de activo fijo a capital contable: {{proporcionACaK | percent: '2.2-2'}}</h2>
+                                </div>
+                                <div class="col-md-5" style="text-align: justify;">
+                                    <h3 *ngIf="proporcionACaK >= 1">La empresa esta financianto completamente sus propios activos.</h3>
+                                    <h3 *ngIf="proporcionACaK < 1">La empresa no esta financianto completamente sus propios activos.</h3>
+                                </div>
+                                <div class="col-md-4" style="text-align: justify;">
+                                    <h3>Cuanto mas alta sea el porcentaje, significa que la empresa en ese porcentaje esta financiando sus propios activos.</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

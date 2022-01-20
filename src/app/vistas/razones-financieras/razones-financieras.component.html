@@ -1,0 +1,119 @@
+<form (ngSubmit)="guardar(forma)" #forma="ngForm">
+    <div mat-dialog-content>
+        <div class="main-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card" style="align-content: center;">
+                            <div class="card-header card-header-primary" style="text-align: center;">
+                                <h2 class="card-title">Razones Financieras</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-12" style="font-weight: bold; text-decoration-line: underline;">
+                                                <p>Datos de Balance General</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <mat-form-field class="example-full-width" appearance="standard">
+                                                    <mat-label>Efectivo y equivalente.($)</mat-label>
+                                                    <input matInput type="number" required name="efectivo" #efectivo 
+                                                    [(ngModel)]="razones.efe">
+                                                </mat-form-field>
+                                            </div>
+                                            
+                                            <div class="col-md-4">
+                                                <mat-form-field class="example-full-width" appearance="standard">
+                                                    <mat-label>Inventarios ($)</mat-label>
+                                                    <input matInput type="number" required name="inventario" #inventario 
+                                                    [(ngModel)]="razones.inv">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <mat-form-field class="example-full-width" appearance="standard">
+                                                    <mat-label>Cuentas por cobrar ($)</mat-label>
+                                                    <input matInput type="number" required name="cxc" #cxc 
+                                                    [(ngModel)]="razones.cxc">
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            
+                                            <div class="col-md-4">
+                                                <mat-form-field class="example-full-width" appearance="standard">
+                                                    <mat-label>T. Activo corriente ($)</mat-label>
+                                                    <input matInput type="number" required name="ac" #ac 
+                                                    [(ngModel)]="razones.ac">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <mat-form-field class="example-full-width" appearance="standard">
+                                                    <mat-label>T. Activo no corriente ($)</mat-label>
+                                                    <input matInput type="number" required name="anc" #anc 
+                                                    [(ngModel)]="razones.anc">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <mat-form-field class="example-full-width" appearance="standard">
+                                                    <mat-label>T. Pasivo corriente ($)</mat-label>
+                                                    <input matInput type="number" required name="pc" #pc 
+                                                    [(ngModel)]="razones.pc">
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <mat-form-field class="example-full-width" appearance="standard">
+                                                    <mat-label>T. Pasivo no corriente ($)</mat-label>
+                                                    <input matInput type="number" required name="pnc" #pnc 
+                                                    [(ngModel)]="razones.pnc">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <mat-form-field class="example-full-width" appearance="standard">
+                                                    <mat-label>Total de Capital ($)</mat-label>
+                                                    <input matInput type="number" required name="k" #k 
+                                                    [(ngModel)]="razones.k">
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-12" style="font-weight: bold; text-decoration-line: underline;">
+                                                <p>Datos de Estado de Resultados</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <mat-form-field class="example-full-width" appearance="standard">
+                                                    <mat-label>Ganancia antes de imp. ($)</mat-label>
+                                                    <input matInput type="number" required name="gai" #gai 
+                                                    [(ngModel)]="razones.gai">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <mat-form-field class="example-full-width" appearance="standard">
+                                                    <mat-label>Impuesto sobre la renta ($)</mat-label>
+                                                    <input matInput type="number" required name="imp" #imp 
+                                                    [(ngModel)]="razones.imp">
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions class="align-content-end">
+        <button mat-raised-button class="btn btn-danger" type="button" (click)="onCancelar()">Cerrar</button>
+        <button mat-raised-button class="btn btn-primary" type="submit" [disabled]="forma.invalid" target="_blank">Reporte</button>
+    </div>
+</form>

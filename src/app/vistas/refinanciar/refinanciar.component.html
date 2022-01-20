@@ -1,0 +1,100 @@
+<form (ngSubmit)="guardar(forma)" #forma="ngForm">
+    <div mat-dialog-content>
+        <div class="main-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card" style="align-content: center;">
+                            <div class="card-header card-header-primary" style="text-align: center;">
+                                <h2 class="card-title">Refinanciamiento </h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width" appearance="standard">
+                                            <mat-label>DUI del cliente</mat-label>
+                                            <input matInput type="number" disabled>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width" appearance="standard">
+                                            <mat-label>Nombre del cliente</mat-label>
+                                            <input matInput type="number" disabled>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width" appearance="standard">
+                                            <mat-label>Tipo de crédito</mat-label>
+                                            <input matInput type="number" disabled>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">                                    
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width" appearance="standard">
+                                            <mat-label>Porcentaje de crédito</mat-label>
+                                            <input matInput type="number" disabled>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width" appearance="standard">
+                                            <mat-label>Saldo actual</mat-label>
+                                            <input matInput type="number" disabled>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width" appearance="standard">
+                                            <mat-label>Saldo Moratorio</mat-label>
+                                            <input matInput type="number" disabled>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width" appearance="standard">
+                                            <mat-label>Monto solicitado</mat-label>
+                                            <input matInput type="number" placeholder="Monto" required>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width" appearance="standard">
+                                            <mat-label>Tiempo</mat-label>
+                                            <input matInput type="number" placeholder="Tiempo" required>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width" appearance="standard">
+                                            <mat-label>Monto a recibir</mat-label>
+                                            <input matInput type="number" placeholder="Monto" required disabled>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width" appearance="standard">
+                                          <mat-label>Interés anual</mat-label>
+                                          <input matInput type="number" placeholder="Monto" required disabled>
+                                        </mat-form-field>
+                                      </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-width" appearance="standard">
+                                            <mat-label>Cuota mensual</mat-label>
+                                            <input matInput type="number" placeholder="Cuota mensual" required disabled>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions class="align-content-end">
+        <button mat-raised-button class="btn btn-danger" type="button" (click)="onCancelar()">Cancelar</button>
+        <button mat-raised-button class="btn btn-primary" type="submit" [disabled]="forma.invalid"
+            [mat-dialog-close]="true">Aceptar</button>
+    </div>
+</form>

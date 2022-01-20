@@ -1,0 +1,172 @@
+<form autocomplete="on" [formGroup]="forma" (ngSubmit)="guardar()">
+  <div mat-dialog-content>
+    <div class="main-content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header card-header-primary" style="text-align: center;">
+                    <h2 class="card-title">{{accion}}</h2>
+              </div>
+              <div class="card-body">
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-accordion>
+                      <mat-expansion-panel >
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            Seleccionar representante
+                          </mat-panel-title>
+                          <mat-panel-description>
+                            <p>{{duiRepre | dui}} / {{nombreRepre}}</p>
+                          </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <mat-form-field appearance="outline" class="example-full-width">
+                          <mat-label>Buscar</mat-label>
+                          <input matInput placeholder="Buscar por DUI" (keyup)="buscarPorDUI($event.target.value)" type="text"> 
+                        </mat-form-field>
+                        <div class="table-responsive">
+                          <table class="table">
+                              <thead class=" text-primary">
+                                  <th>
+                                      DUI
+                                  </th>
+                                  <th>
+                                      Nombres
+                                  </th>
+                                  <th>
+                                      Apellidos
+                                  </th>
+                                  <th>
+                                      Acción
+                                  </th>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let pn of listaRepresentante; let i = index">
+                                      <td>
+                                          {{pn.dui | dui}}
+                                      </td>
+                                      <td>
+                                          {{pn.nombres}}
+                                      </td>
+                                      <td>
+                                          {{pn.apellidos}}
+                                      </td>
+                                      <td>
+                                            <button mat-icon-button type="button" (click)="seleccionoRepresentante(pn)" color="primary">
+                                              <mat-icon>check</mat-icon>
+                                            </button>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field appearance="standard" class="example-full-width">
+                      <mat-label>NIT</mat-label>
+                      <input matInput placeholder="####-######-###-#" type="text" mask="0000-000000-000-0"
+                            required formControlName="nit" [disabled]="editarCampos">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-6">
+                    <mat-form-field appearance="standard" class="example-full-width">
+                      <mat-label>Nombre</mat-label>
+                      <input matInput placeholder="" type="text"
+                            required formControlName="nombre" [disabled]="editarCampos">
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div formArrayName="telefonos" >
+                      <button (click)="agregarTelefonos()" *ngIf="telefonos.length === 0" mat-raised-button type="button" class="btn btn-success"><i class="material-icons">add</i>Añadir teléfono</button>
+                    
+                      <div *ngIf="telefonos.length > 0">
+                        <div *ngFor="let control of telefonos.controls; let i = index" >
+
+                          <div class="row" [formGroupName]="i">
+                            <div class="col-md-4">
+                              <mat-form-field appearance="standard" >
+                                <mat-label>Tipo de contacto</mat-label>
+                                <mat-select required formControlName="tipoContacto" [disabled]="editarCampos">
+                                  <mat-option value="PERSONAL" >PERSONAL</mat-option>
+                                  <mat-option value="CASA">CASA</mat-option>
+                                  <mat-option value="TRABAJO">OFICINA</mat-option>
+                                  <mat-option value="OTRO">OTRO</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                            
+                            <div class="col-md-4">
+                              <mat-form-field appearance="standard" class="example-full-width">
+                                <mat-label>Teléfono</mat-label>
+                                <input matInput placeholder="####-####" mask="0000-0000" type="text" 
+                                      required
+                                      formControlName="telefono" [disabled]="editarCampos">
+                              </mat-form-field>
+                            </div>
+
+                            <div class="col-md-4">
+                              <button mat-raised-button (click)="agregarTelefonos()" type="button" class="btn btn-success" matTooltip="Agregar otro teléfono"><i class="material-icons">add</i></button>
+                              <button mat-raised-button (click)="eliminarTelefonos(i)" type="button" class="btn btn-danger" matTooltip="Eliminar este teléfono"><i class="material-icons">restore_from_trash</i></button>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-form-field appearance="standard">
+                      <mat-label>Departamento</mat-label>
+                      <mat-select required (selectionChange)="deptoSeleccionado($event.value)" [(value)]="deptoSel" [compareWith]="compararDeptos" [disabled]="editarCampos">
+                        <mat-option *ngFor="let depto of listaDepartamento"  [value]="depto">{{depto.nombre}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-4">
+                    <mat-form-field appearance="standard">
+                      <mat-label>Municipio</mat-label>
+                      <mat-select required [disabled]="valido" formControlName="ubicacion" [(value)]="muniSel" [compareWith]="compararMuni" [disabled]="editarCampos">
+                        <mat-option *ngFor="let muni of listaMunicipio" [value]="muni">{{muni.nombre}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Dirección</mat-label>
+                      <textarea matInput required formControlName="direccion" [disabled]="editarCampos"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions class="align-content-end">
+    <button mat-raised-button class="btn btn-danger" type="button" (click)="onCancelar()">Cancelar</button>
+    <button mat-raised-button class="btn btn-primary" [disabled]="forma.invalid" type="submit" [mat-dialog-close]="">Guardar</button>
+  </div>
+</form>
