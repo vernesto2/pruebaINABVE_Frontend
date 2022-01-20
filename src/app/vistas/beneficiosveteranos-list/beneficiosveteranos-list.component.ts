@@ -27,10 +27,10 @@ export class BeneficiosveteranosListComponent implements OnInit {
               public serviceBeneficios: BeneficioService) { 
 
                 // if para mostrar el formulario lleno al 
-    // presionar el boton del ojito
-    if (this.data != null) {
-      this.veterano = data;
-    }
+                // presionar el boton del ojito
+                if (this.data != null) {
+                  this.veterano = data;
+                }
               }
 
   ngOnInit(): void {
@@ -47,7 +47,7 @@ export class BeneficiosveteranosListComponent implements OnInit {
   }
 
   llenarListaBeneficios(){
-    this.serviceBeneficios.listarActivos().subscribe((res: any) => {
+    this.serviceBeneficios.listarBeneficiosVeteranos(this.veterano.id).subscribe((res: any) => {
       this.listaBeneficios = res.body;
     })
   }
@@ -59,6 +59,7 @@ export class BeneficiosveteranosListComponent implements OnInit {
         if (res.status == 200) {
           this.showNotification('top', 'right', 'Se dio de baja Correctamente!', 'save', 'success');
           this.llenarLista();
+          this.llenarListaBeneficios();
         } else {
           this.showNotification('bottom', 'right', 'Ocurrio un problema!', 'cancel', 'danger');
         }

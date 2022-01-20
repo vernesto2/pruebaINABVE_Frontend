@@ -18,6 +18,10 @@ export class BeneficioService {
     return this.http.get(`${this.base_uri}/listar`, { observe: 'response' });
   }
 
+  listarBeneficiosVeteranos(idVeterano: number): Observable<any> {
+    return this.http.get(`${this.base_uri}/listarbeneficiosveterano/${idVeterano}`, { observe: 'response' });
+  }
+
   obtenerPorId(id: number): Observable<any> {
     return this.http.get(`${this.base_uri}/obtenerporid/${id}`, { observe: 'response' });
   }
