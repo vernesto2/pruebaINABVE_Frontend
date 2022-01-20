@@ -1,0 +1,73 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <button mat-raised-button class="btn btn-primary" (click)="openDialog()">Agregar Beneficio</button>
+            </div>
+        </div>
+        <div class="row" *ngIf="!cargando && lista.length > 0">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger" style="text-align: center;">
+                        <h4 class="card-title">Detalles listados</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                        Nombre
+                                    </th>
+                                    <th>
+                                        Descripción
+                                    </th>
+                                    <th>
+                                        Acciones
+                                    </th>
+                                </thead>
+                                <tbody>
+                                   <tr *ngFor="let p of lista | paginate: { itemsPerPage: 5, currentPage: page }">
+                                        <td> {{p.nombre}} </td>
+                                        <td> {{p.descripcion}} </td>
+                                        <td>
+                                            <button mat-icon-button (click)="openDialog(p)" class="btn btn-outline-primary" matTooltip="Ver Detalles"><i class="material-icons">remove_red_eye</i> </button>
+                                            <button mat-icon-button (click)="Eliminar(p)" class="btn btn-outline-warning" matTooltip="Dar de baja"><i class="material-icons">delete</i> </button>
+                                        </td>
+                                   </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <pagination-controls (pageChange)="page = $event" previousLabel="Atras" nextLabel="Sig."></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="text-center" *ngIf="!cargando && lista.length === 0">
+                    <mat-card class="alert alert-warning">
+                        No hay datos!
+                        <mat-card-content>
+                            <mat-icon>warning</mat-icon>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+
+                <div class="text-center" *ngIf="cargando">
+                    <mat-card class="alert alert-danger">
+                        Cargando...
+                        <mat-card-content>
+                            <mat-icon class="fa-spin" >autorenew</mat-icon>
+                        </mat-card-content>
+                        Por favor espere!
+                    </mat-card>
+                </div>
+
+            </div>
+        </div>
+    </div>
+  </div>
+  

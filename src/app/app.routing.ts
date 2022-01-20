@@ -6,7 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './componentesAntiguos/layouts/admin-layout/admin-layout.component';
 import { RazonesComponent } from './reportes/razones/razones.component';
-import { LoginComponent } from './vistas/login/login.component';
 
 const routes: Routes = [
   {
@@ -16,9 +15,7 @@ const routes: Routes = [
       path: '',
       loadChildren: './componentesAntiguos/layouts/admin-layout/admin-layout.module#AdminLayoutModule'
     }]
-  }, { path: 'reportes/razones-financieras', component: RazonesComponent },
-  { path: 'reportes/ticket', component: TicketComponent },
-  { path: 'iniciar-session', component: LoginComponent },
+  }
 
 ];
 

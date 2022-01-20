@@ -1,0 +1,48 @@
+<form (ngSubmit)="guardar(forma)" #forma="ngForm">
+    <div mat-dialog-content>
+      <div class="main-content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card" style="align-content: center;">
+                <div class="card-header card-header-primary" style="text-align: center;">
+                    <h2 class="card-title">Registro </h2>
+                </div>
+                <div class="card-body">
+
+                  <div class="row">
+                    <div class="col-md-6 ">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput [disabled]="false" type="text" required
+                            name="nombre"
+                            #nombre="ngModel"
+                            [(ngModel)]="beneficio.nombre">
+                        </mat-form-field>
+                    </div>
+  
+                    <div class="col-md-6">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Descripción</mat-label>
+                            <input matInput [disabled]="false" type="text"
+                            name="descripcion"
+                            #descripcion="ngModel"
+                            [(ngModel)]="beneficio.descripcion">
+                        </mat-form-field>
+                    </div>                   
+                  </div>
+  
+                </div>
+              </div>
+            </div>
+  
+          </div>
+   
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions class="align-content-end">
+      <button mat-raised-button class="btn btn-danger" type="button" (click)="onCancelar()">Cancelar</button>
+      <button mat-raised-button class="btn btn-primary" type="submit" [disabled]="forma.invalid" [mat-dialog-close]="true">Guardar</button>
+    </div>
+  </form>

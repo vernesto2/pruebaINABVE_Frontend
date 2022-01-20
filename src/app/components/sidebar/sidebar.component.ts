@@ -8,15 +8,8 @@ declare interface RouteInfo {
     class: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/inicio', title: 'Inicio',  icon: 'home', class: '' },
-    { path: '/cobro', title: 'Cobro',  icon: 'attach_money', class: '' },
-    { path: '/creditopersonal', title: 'Crédito Personal',  icon: 'perm_identity', class: '' },
-    { path: '/creditoempresa', title: 'Crédito Empresarial',  icon: 'account_balance', class: '' },
-    { path: '/clientes-persona', title: 'Clientes (Personas)',  icon: 'supervisor_account', class: '' },
-    { path: '/clientes-empresa', title: 'Clientes (Empresas)',  icon: 'supervisor_account', class: '' },
-    { path: '/politicas', title: 'Políticas',  icon: 'privacy_tip', class: '' },
-    { path: '/usuario', title: 'Usuario',  icon: 'supervised_user_circle', class: '' },
-    { path: '/activofijo', title: 'Activo Fijo',  icon: 'style', class: '' },
+    { path: '/veteranos', title: 'Listado de Veteranos',  icon: 'supervisor_account', class: '' },
+    { path: '/beneficios', title: 'Listado de Beneficios',  icon: 'privacy_tip', class: '' },
 ];
 
 @Component({
@@ -30,15 +23,15 @@ export class SidebarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    let usuario = {
+    /* let usuario = {
       tipoUsuario: 'Admin'
     }
     for (let i = 0; i < ROUTES.length; i++) {
       if (usuario.tipoUsuario == "Admin" && (i < 10)) {
         this.menuItems.push(ROUTES[i]);
       }
-    }
-    //this.menuItems = ROUTES.filter(menuItem => menuItem);
+    } */
+    this.menuItems = ROUTES.filter(menuItem => menuItem);
     //console.log(ROUTES.length);
   }
   isMobileMenu() {

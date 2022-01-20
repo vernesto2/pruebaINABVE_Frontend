@@ -1,0 +1,222 @@
+<form (ngSubmit)="guardar(forma)" #forma="ngForm">
+    <div mat-dialog-content>
+      <div class="main-content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card" style="align-content: center;">
+                <div class="card-header card-header-primary" style="text-align: center;">
+                    <h2 class="card-title">Registro </h2>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6 ">
+                      <mat-form-field appearance="standard">
+                        <mat-label>DUI</mat-label>
+                        <input matInput  placeholder="########-#" [disabled]="false" type="text" mask="00000000-0" required
+                        name="dui"
+                        #dui="ngModel"
+                        [(ngModel)]="veterano.dui">
+                      </mat-form-field>
+                    </div>
+  
+                    <div class="col-md-6">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Carnet</mat-label>
+                            <input matInput [disabled]="false" type="text" required
+                            name="carnet"
+                            #carnet="ngModel"
+                            [(ngModel)]="veterano.carnet">
+                        </mat-form-field>
+                    </div>                   
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 ">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Primer Nombre</mat-label>
+                            <input matInput [disabled]="false" type="text" required
+                            name="primerNombre"
+                            #primerNombre="ngModel"
+                            [(ngModel)]="veterano.primerNombre">
+                        </mat-form-field>
+                    </div>
+  
+                    <div class="col-md-6">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Segundo Nombre</mat-label>
+                            <input matInput [disabled]="false" type="text"
+                            name="segundoNombre"
+                            #segundoNombre="ngModel"
+                            [(ngModel)]="veterano.segundoNombre">
+                        </mat-form-field>
+                    </div>                   
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 ">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Primer Apellido</mat-label>
+                            <input matInput [disabled]="false" type="text" required
+                            name="primerApellido"
+                            #primerApellido="ngModel"
+                            [(ngModel)]="veterano.primerApellido">
+                        </mat-form-field>
+                    </div>
+  
+                    <div class="col-md-6">
+                        <mat-form-field appearance="standard">
+                            <mat-label>Segundo Apellido</mat-label>
+                            <input matInput [disabled]="false" type="text"
+                            name="segundoApellido"
+                            #segundoApellido="ngModel"
+                            [(ngModel)]="veterano.segundoApellido">
+                        </mat-form-field>
+                    </div>                   
+                  </div>
+  
+                  <!-- <div class="row">                  
+                    <div class="col-md-3">
+                      <mat-form-field appearance="standard">
+                        <mat-label>Tipo de crédito</mat-label>
+                        <mat-select required
+                        [disabled]="estado"
+                        name="tipoCredito"
+                        #tipoCredito="ngModel"
+                        [(ngModel)]="veterano.tipoCredito">
+                          <mat-option value="HIPOTECARIO">Hipotecario</mat-option>
+                          <mat-option value="CONSUMO">Consumo</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>                  
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width" appearance="standard">
+                        <mat-label>Días de cobro</mat-label>
+                        <input matInput type="number" placeholder="Días de cobro" required [disabled]="estado"
+                        [disabled]="estado"
+                        name="diasCobro"
+                        #diasCobro="ngModel"
+                        [(ngModel)]="veterano.diasCobro">
+                      </mat-form-field>
+                    </div> 
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width" appearance="standard">
+                        <mat-label>Tasa de interés</mat-label>
+                        <input matInput type="number" placeholder="Tasa de interés (%)" required
+                        [disabled]="estado"
+                        name="tInteres"
+                        #tInteres="ngModel"
+                        [(ngModel)]="veterano.tasaInteres">
+                      </mat-form-field>
+                    </div>
+                  </div>
+  
+                  <div class="row">                  
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width" appearance="standard">
+                        <mat-label>Período de inicio</mat-label>
+                        <input matInput type="number" placeholder="Período de inicio" required
+                        [disabled]="estado"
+                        name="tiempoInferior"
+                        #tiempoInferior="ngModel"
+                        [(ngModel)]="veterano.tiempoInferior">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width" appearance="standard">
+                        <mat-label>Período de finalización</mat-label>
+                        <input matInput type="number" placeholder="Período de finalización" required
+                        [disabled]="estado"
+                        name="tiempoSuperior"
+                        #tiempoSuperior="ngModel"
+                        [(ngModel)]="veterano.tiempoSuperior">
+                      </mat-form-field>
+                    </div>                  
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width" appearance="standard">
+                        <mat-label>Cuota por mora</mat-label>
+                        <input matInput type="number" placeholder="Cuota por mora ($)" required
+                        [disabled]="estado"
+                        name="tMora"
+                        #tMora="ngModel"
+                        [(ngModel)]="veterano.tasaMora">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                    
+                  <div class="row">                  
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width" appearance="standard">
+                        <mat-label>Monto inferior</mat-label>
+                        <input matInput type="number" placeholder="Monto inferior ($)" required
+                        [disabled]="estado"
+                        name="mInferior"
+                        #mInferior="ngModel"
+                        [(ngModel)]="veterano.montoInferior">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width" appearance="standard">
+                        <mat-label>Monto superior</mat-label>
+                        <input matInput type="number" placeholder="Monto superior ($)" required
+                        [disabled]="estado"
+                        name="mSuperior"
+                        #mSuperior="ngModel"
+                        [(ngModel)]="veterano.montoSuperior">
+                      </mat-form-field>
+                    </div>
+                  </div>
+  
+                  <div class="row">
+                    <div class="col-md-9">
+                      <hr>
+                      <p><b>Comisiones</b></p>
+                    </div>
+                  </div>
+  
+                  <div class="row">
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width" appearance="standard">
+                        <mat-label>Gasto de tramitación ($)</mat-label>
+                        <input matInput type="number" placeholder="Gasto de tramitación (%)" required
+                        [disabled]="estado"
+                        name="tramitacion"
+                        #tramitacion="ngModel"
+                        [(ngModel)]="veterano.gastosTramitacion">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width" appearance="standard">
+                        <mat-label>Honorarios notariales ($)</mat-label>
+                        <input matInput type="number" placeholder="Honorarios notariales (%)" required
+                        [disabled]="estado"
+                        name="notario"
+                        #notario="ngModel"
+                        [(ngModel)]="veterano.gastosNotario">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3">
+                      <mat-form-field class="example-full-width" appearance="standard">
+                        <mat-label>Otras comisiones ($)</mat-label>
+                        <input matInput type="number" placeholder="Otros ($)" 
+                        [disabled]="estado"
+                        name="otras"
+                        #otras="ngModel"
+                        [(ngModel)]="veterano.otrasComisiones">
+                      </mat-form-field>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+  
+          </div>
+   
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions class="align-content-end">
+      <button mat-raised-button class="btn btn-danger" type="button" (click)="onCancelar()">Cancelar</button>
+      <button mat-raised-button class="btn btn-primary" type="submit" [disabled]="forma.invalid" [mat-dialog-close]="true">Guardar</button>
+    </div>
+  </form>
